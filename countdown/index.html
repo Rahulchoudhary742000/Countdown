@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>index</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </link>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/mycss.css">
+    
+</head>
+    
+<body>
+   <div class="main">
+    <!-- <img src="bg.jpg" class="img-fluid" style="height:569px;width:1281px"> -->
+    <div class="overley">
+      
+        <div class="title">
+             Birthday Countdown
+               <br>
+               date
+        </div>
+        <div class="title1" id="endDate">Date 7/04/2023</div>
+        <div class="container">
+              <div class="row ml-5">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-2" >
+                   <input type="text" readonly value="0"><br><br>
+                   
+                    <label >Days</label>
+                   
+                </div>
+                 <div class="col-sm-2">
+                    
+                    <input type="text" readonly value="0"><br><br>
+                    <label>Hours</label>
+                 </div>
+                 <div class="col-sm-2" >
+                    
+                    <input type="text" readonly value="0"><br><br>
+                    <label>Minutes</label>
+                 </div>
+                 <div class="col-sm-2" >
+                   
+                    <input type="text" readonly value="0"><br><br>
+                    <label>Seconds</label>
+                 </div>
+                 <div class="col-sm-2"></div>
+              </div>
+              
+              <div class="row">
+                   <div class="col-sm-4"></div>
+                    <div class="col-sm-4 bt" >
+                    <button class="btn btn-success"  data-toggle="modal" data-target="#myModal">Star Your Countdown</button>
+                    
+                </div>
+                   <div class="col-sm-4"></div>
+              </div>
+        </div>
+
+    </div>
+    
+    
+   </div>
+
+<script>
+    const monthName = ["01","02","03","04","05","06","07","08","09","10","11","12"];
+    const d = new Date();
+    let month = monthName[d.getMonth()];
+    let day=new Date().toString().split(" ")[2];
+    let year=new Date().getFullYear();
+    document.getElementById("endDate").innerHTML=month+"-"+day+"-"+year;
+    let val="02-06-2023";
+    let timer=1000;
+    let  getSelect=false;
+    function getDate(){
+       val=document.getElementById("date").value;
+       let p=val.split("-");
+       let dt=p[1]+"-"+p[2]+"-"+p[0];
+       val=dt;
+       getSelect=true;
+       select();
+       
+    }
+    let inputs;
+    let endDate;
+    function select(){
+         endDate=val;
+         document.getElementById("endDate").innerText=endDate;
+         inputs=document.querySelectorAll("input");
+    }
+    
+        
+        function clock(){
+            if(getSelect){
+                    const end=new Date(endDate);
+                    const now=new Date();
+                    const diff=(end-now)/1000;//seconds
+                    if(diff<0)return;
+                    inputs[0].value=Math.floor(diff/3600/24);
+                    inputs[1].value=Math.floor(diff/3600)%24;
+                    inputs[2].value=Math.floor(diff/60)%60;
+                    inputs[3].value=Math.floor(diff)%60;
+            }
+        }
+       setInterval(()=>{
+         clock();
+       },timer);
+   
+   
+   
+    
+    
+</script>
+</body>
+
+</html>
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body " style="background-color:hsl(0, 0%, 95%)">
+                 <input type="date" class="form-control" id="date"><br>
+                 <button class="btn btn-primary float-right" onclick="getDate()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
